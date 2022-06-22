@@ -3,6 +3,7 @@ package emsi.ma.ebankingbackend.web;
 import emsi.ma.ebankingbackend.dtos.*;
 import emsi.ma.ebankingbackend.exceptions.BalanceNotSufficientException;
 import emsi.ma.ebankingbackend.exceptions.BankAccountNotFoundException;
+import emsi.ma.ebankingbackend.exceptions.CustomerNotFoundException;
 import emsi.ma.ebankingbackend.services.BankAccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,15 @@ public class BankAccountRestAPI {
 
     public BankAccountRestAPI(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
+    }
+
+    @PostMapping("/customer-accounts/saveSavingAccount")
+    public void saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException{
+         bankAccountService.saveSavingBankAccount(initialBalance,interestRate,customerId);
+    }
+    @PostMapping("/customer-accounts/saveCurrentAccount")
+    public void saveCurrentBankAccount(double initialBalance, double overdraft, Long customerId) throws CustomerNotFoundException{
+         bankAccountService.saveCurrentBankAccount(initialBalance,overdraft,customerId);
     }
 
     @GetMapping("/accounts/{accountId}")

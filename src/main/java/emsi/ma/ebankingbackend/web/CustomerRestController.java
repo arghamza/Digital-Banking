@@ -1,5 +1,6 @@
 package emsi.ma.ebankingbackend.web;
 
+import emsi.ma.ebankingbackend.dtos.BankAccountDTO;
 import emsi.ma.ebankingbackend.dtos.CustomerDTO;
 import emsi.ma.ebankingbackend.entities.Customer;
 import emsi.ma.ebankingbackend.exceptions.CustomerNotFoundException;
@@ -46,5 +47,10 @@ public class CustomerRestController {
     @DeleteMapping("/customers/{id}")
     public void deleteCustomer(@PathVariable Long id){
         bankAccountService.deleteCustomer(id);
+    }
+
+    @GetMapping("/customer-accounts/{id}")
+    public List<BankAccountDTO> getCustomerAccounts(@PathVariable(name="id") Long customerId)throws CustomerNotFoundException{
+        return bankAccountService.getCustomerAccounts(customerId);
     }
 }
